@@ -41,4 +41,33 @@ class DepartmentDAO {
     deinit {
         self.fmdb.close()
     }
+    
+    func find() -> [DepartRecord] {
+        var departList = [DepartRecord]()
+        
+        do {
+            /// 1) sql
+            let sql = """
+                        SELECT depart_cd, depart_title, depart_addr
+                        FROM department
+                        ORDER BY depart_cd ASC
+                    """
+            
+            let rs = try self.fmdb.executeQuery(sql, values: nil)
+            
+            /// 2) ResultSet
+            while rs.next() {
+                let departCd = rs.int(forColumn: "depart_cd")
+                let departTitle = rs.string(forColumn: "depart_title")
+                let departAddr = rs.string(forColumn: "depart_addr")
+                
+                // 3) 힙 영역에 할당된 변수에 append
+                departList.append((Int(departCd), departTitle!, departAddr!))
+            }
+        } catch let error as NSError {
+            print("failed: \(error.localizedDescription)")
+        }
+        
+        return departList
+    }
 }
