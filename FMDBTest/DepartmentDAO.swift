@@ -10,6 +10,7 @@ import UIKit
 
 // DepartmentDAO.swift
 class DepartmentDAO {
+    
     /// 연관성 있는 데이터 : 튜플이 가장 적합
     /// 딕셔너리는 데이터타입이 너무 다양하고, VO패턴의 객체는 번거로움
     typealias DepartRecord = (Int, String, String)
@@ -32,4 +33,12 @@ class DepartmentDAO {
         let db = FMDatabase(path: dbPath)
         return db
     }()
+    
+    init() {
+        self.fmdb.open()
+    }
+    
+    deinit {
+        self.fmdb.close()
+    }
 }
