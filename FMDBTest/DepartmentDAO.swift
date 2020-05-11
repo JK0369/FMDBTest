@@ -42,6 +42,7 @@ class DepartmentDAO {
         self.fmdb.close()
     }
     
+    // 모든 부서 정보 탐색
     func find() -> [DepartRecord] {
         var departList = [DepartRecord]()
         
@@ -69,5 +70,55 @@ class DepartmentDAO {
         }
         
         return departList
+    }
+    
+    /// 단일 부서 정보를 읽어오는 함수
+    func get(departCd: Int) -> DepartRecord? {
+        let sql = """
+                    SELECT depart_cd, depart_title, depart_addr
+                    FROM department
+                    WHERE depart_cd = ?
+                """
+        
+        let rs = self.fmdb.executeQuery(sql, withArgumentsIn: [departCd])
+        
+        if let _rs = rs { // 반환됐던 결과집합은 옵셔널타입
+            _rs.next()
+            
+            let departId = _rs.int(forColumn: "depart_cd")
+            let departTitle = _rs.string(forColumn: "depart_title")
+            let departAddr = _rs.string(forColumn: "depart_addr")
+            
+            return (Int(departId), departTitle!, departAddr!)
+        } else {
+            return nil
+        }
+    }
+    
+    func create(title: String!, addr: String!) -> Bool {
+        do {
+            let sql = """
+                        INSERT INTO department (depart_title, depart_addr)
+                        VALUES(?, ?)
+                    """
+            
+            // 내용을 변경하므로 executeQuery 대신에 executeUpdate사용
+            try self.fmdb.executeUpdate(sql, values: [title!, addr!])
+            return true
+        } catch let error as NSError {
+            print("Insert Error : \(error.localizedDescription)")
+            return false
+        }
+    }
+    
+    func remove(departCd: Int) -> Bool {
+        do {
+            let sql = "DELETE FROM department WHERE depat_cd = ?"
+            try self.fmdb.executeUpdate(sql, values: [departCd])
+            return true
+        } catch let error as NSError {
+            print("DELETE Error : \(error.localizedDescription)")
+            retur false
+        }
     }
 }
