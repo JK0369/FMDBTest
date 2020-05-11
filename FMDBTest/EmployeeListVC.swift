@@ -14,6 +14,16 @@ class EmployeeListVC: UITableViewController {
     override func viewDidLoad() {
         empList = empDAO.find()
         initUI()
+        
+        self.refreshControl = UIRefreshControl()
+        self.refreshControl?.attributedTitle = NSAttributedString(string: "당겨서 새로고침")
+        self.refreshControl?.addTarget(self, action: #selector(pullToRefresh(_:)), for: .valueChanged)
+    }
+    
+    @objc func pullToRefresh(_ sender: Any) {
+        self.empList = self.empDAO.find()
+        self.tableView.reloadData()
+        self.refreshControl?.endRefreshing()
     }
     
     func initUI() {

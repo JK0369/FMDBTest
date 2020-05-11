@@ -96,6 +96,7 @@ extension DepartmentInfoVC {
             }
             return cell!
         } else { /// indexPath.section == 1
+            
             let row = self.empList[indexPath.row]
             
             let cell = tableView.dequeueReusableCell(withIdentifier: "EMP_CELL")
@@ -107,9 +108,22 @@ extension DepartmentInfoVC {
             state.frame.origin.y = 10
             state.selectedSegmentIndex = row.stateCd.rawValue
             
+            state.tag = row.empCd
+            state.addTarget(self, action: #selector(self.changeState(_:)), for: .valueChanged)
+            
             cell?.contentView.addSubview(state)
             return cell!
         }
-
     }
+    
+    @objc func changeState(_ sender: UISegmentedControl) {
+        let empCd = sender.tag
+        let stateCd = EmpStateType(rawValue: sender.selectedSegmentIndex)
+        if self.empDAO.editState(empCd: empCd, stateCd: stateCd!) {
+            let alert = UIAlertController(title: nil, message: "재직 상태가 변경되었습니다" , preferredStyle: .alert)
+            alert.addAction(UIAlertAction(title: "확인", style: .cancel))
+            self.present(alert, animated: false)
+        }
+    }
+    
 }

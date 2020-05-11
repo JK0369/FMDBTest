@@ -10,10 +10,42 @@ import UIKit
 class DepartmentListVC: UITableViewController {
     var departList: [(departCd: Int, departTitle: String, departAddr: String)]!
     let departDAO = DepartmentDAO()
+    var loadingImg: UIImageView!
+    var bgCircle: UIView!
     
     override func viewDidLoad() {
         self.departList = self.departDAO.find() /// DAO객체 통해 해당 클래스의 heap할당 변수에 저장
         self.initUI() /// 테이블 뷰에 표시
+
+        self.refreshControl = UIRefreshControl()
+        self.refreshControl?.attributedTitle = NSAttributedString(string: "커스터마이징 새로고침")
+        
+        self.bgCircle = UIView()
+        self.bgCircle.backgroundColor = .yellow
+        self.bgCircle.center.x = (self.refreshControl?.frame.width)! / 2
+        
+        self.refreshControl?.addTarget(self, action: #selector(pullToRefresh(_:)), for: .valueChanged)
+        
+        self.refreshControl?.addSubview(self.bgCircle)
+        
+        self.loadingImg = UIImageView(image: UIImage(named: "refresh"))
+        self.loadingImg.center.x = (self.refreshControl?.frame.width)! / 2
+        self.refreshControl?.tintColor = .clear
+        self.refreshControl?.addSubview(self.loadingImg)
+        self.refreshControl?.bringSubviewToFront(self.bgCircle)
+     }
+     
+     @objc func pullToRefresh(_ sender: Any) {
+        self.departList = self.departDAO.find()
+         self.tableView.reloadData()
+         self.refreshControl?.endRefreshing()
+     }
+    
+    override func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        let dist = max(0.0, -((self.refreshControl?.frame.origin.y)!))
+        self.loadingImg.center.y = dist / 2
+        let ts = CGAffineTransform(rotationAngle: CGFloat(dist / 20))
+        self.loadingImg.transform = ts
     }
     
     func initUI() {
