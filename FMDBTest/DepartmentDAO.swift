@@ -118,7 +118,7 @@ class DepartmentDAO {
             return true
         } catch let error as NSError {
             print("DELETE Error : \(error.localizedDescription)")
-            retur false
+            return false
         }
     }
 }
