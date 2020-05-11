@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		4A87E2EC24694889004470BC /* EmployeeDAO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A87E2EB24694889004470BC /* EmployeeDAO.swift */; };
 		4AF07BBE2468118E00B8E5EB /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AF07BBD2468118E00B8E5EB /* AppDelegate.swift */; };
 		4AF07BC02468118E00B8E5EB /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AF07BBF2468118E00B8E5EB /* SceneDelegate.swift */; };
 		4AF07BC22468118E00B8E5EB /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AF07BC12468118E00B8E5EB /* ViewController.swift */; };
@@ -25,6 +26,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		4A87E2EB24694889004470BC /* EmployeeDAO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmployeeDAO.swift; sourceTree = "<group>"; };
 		4AF07BBA2468118D00B8E5EB /* FMDBTest.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FMDBTest.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		4AF07BBD2468118E00B8E5EB /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		4AF07BBF2468118E00B8E5EB /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -86,6 +88,7 @@
 			children = (
 				4AF07BEF24682F5A00B8E5EB /* hr.sqlite */,
 				4AF07BF12468301F00B8E5EB /* DepartmentDAO.swift */,
+				4A87E2EB24694889004470BC /* EmployeeDAO.swift */,
 				4AF07BBD2468118E00B8E5EB /* AppDelegate.swift */,
 				4AF07BE624681F6000B8E5EB /* Bridge-Header-For-fmdb.h */,
 				4AF07BBF2468118E00B8E5EB /* SceneDelegate.swift */,
@@ -198,6 +201,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4A87E2EC24694889004470BC /* EmployeeDAO.swift in Sources */,
 				4AF07BEE24682DB600B8E5EB /* DepartmentListVC.swift in Sources */,
 				4AF07BC22468118E00B8E5EB /* ViewController.swift in Sources */,
 				4AF07BF22468301F00B8E5EB /* DepartmentDAO.swift in Sources */,
